@@ -4,15 +4,13 @@ import requests
 from datetime import datetime
 import plotly.express as px
 
-# ✅ Sheety endpoint (same for both GET and POST)
+# Used Sheety API for data (Edit the URL if attaching a new file)
 SHEETY_URL = "https://api.sheety.co/87b8eefb4cc926f74fd95f74044d124a/moodLog/sheet1"
 
 st.set_page_config(page_title="Mood Logger", layout="centered")
 st.title("🧪 Mood of the Queue")
 
-# -------------------------------
-# ✍️ Log a mood
-# -------------------------------
+#Adding logs for mood
 st.header("Log a Mood")
 
 mood = st.selectbox("How does the queue feel?", ["😊", "😠", "😕", "🎉"])
@@ -37,9 +35,7 @@ if st.button("Submit"):
         st.write("Status code:", res.status_code)
         st.write("Response:", res.text)
 
-# -------------------------------
-# 📊 Show mood chart
-# -------------------------------
+#Mood Chart
 st.header("Mood Chart (Today)")
 
 res = requests.get(SHEETY_URL)
@@ -84,18 +80,18 @@ if res.status_code == 200:
             st.info("No mood entries yet.")
         else:
             df['timestamp'] = pd.to_datetime(df['timestamp'], errors="coerce")
-            df['date'] = df['timestamp'].dt.date  # Extract just the date
-            df['time'] = df['timestamp'].dt.time  # Optional: you could show time too
+            df['date'] = df['timestamp'].dt.date 
+            df['time'] = df['timestamp'].dt.time  
 
-            # 📅 Filter by date
+            # Filter by date
             unique_dates = sorted(df['date'].unique(), reverse=True)
             selected_date = st.selectbox("Select a date", unique_dates, index=0)
 
-            # 😊 Filter by mood (optional)
+            # Filter by mood 
             unique_moods = df['mood'].unique().tolist()
             selected_moods = st.multiselect("Filter by mood(s)", unique_moods, default=unique_moods)
 
-            # 🔍 Apply filters
+            # Apply filters
             df_filtered = df[(df['date'] == selected_date) & (df['mood'].isin(selected_moods))]
 
             if df_filtered.empty:
