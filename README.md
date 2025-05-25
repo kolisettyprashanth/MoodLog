@@ -29,6 +29,5 @@ This is a simple internal tool for logging and visualizing the mood of a patient
    ```bash
    git clone https://github.com/YOUR_USERNAME/mood-tracker.git
    cd mood-tracker
-2. pip install -r requirements.txt
-3. Update the Sheety URL in app.py
-4. Run the app: streamlit run app.py
+2. Update the Sheety URL in app.py
+3. Run the app: streamlit run app.py
