@@ -1,4 +1,4 @@
-# Mood of the Queue — Streamlit App
+# Mood Log
 
 This is a simple internal tool for logging and visualizing the mood of a patient support ticket queue throughout the day.
 
